@@ -10,7 +10,9 @@ module.exports = {
         {
           name: 'app1',
           filename: 'remoteEntry.js',
-          remotes: {},
+          remotes: {
+            app2: 'app2@http://localhost:3003/remoteEntry.js',
+          },
           exposes: {
             './Header': './src/components/HeaderComponents.vue',
           },

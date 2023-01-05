@@ -10,9 +10,11 @@ module.exports = {
         {
           name: 'app2',
           filename: 'remoteEntry.js',
-          remotes: {},
+          remotes: {
+            app1: 'app1@http://localhost:3002/remoteEntry.js',
+          },
           exposes: {
-            './App2': './src/views/HomeView.vue',
+            './Sidebar': './src/components/SidebarComponent.vue',
           },
           shared: {
             vue: {

@@ -18,5 +18,7 @@
   justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
+  align-items: center;
+  border-bottom: 2px solid rgb(38, 38, 38);
 }
 </style>

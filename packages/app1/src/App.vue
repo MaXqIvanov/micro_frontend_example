@@ -1,19 +1,36 @@
 <template>
   <HeaderComponents />
-  <router-view />
+  <div class="main">
+    <Sidebar />
+    <div class="wrapper">
+      <router-view />
+    </div>
+  </div>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script>
+import { defineAsyncComponent } from 'vue';
 import HeaderComponents from '@/components/HeaderComponents.vue'; // @ is an alias to /src
+const Sidebar = defineAsyncComponent(() => import('app2/Sidebar'));
 
-export default defineComponent({
-  name: 'HomeView',
+export default {
   components: {
     HeaderComponents,
+    Sidebar,
   },
-});
+};
 </script>
 <style lang="scss">
+.wrapper {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.main {
+  display: flex;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
