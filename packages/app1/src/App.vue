@@ -1,11 +1,18 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <HeaderComponents />
   <router-view />
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import HeaderComponents from '@/components/HeaderComponents.vue'; // @ is an alias to /src
 
+export default defineComponent({
+  name: 'HomeView',
+  components: {
+    HeaderComponents,
+  },
+});
+</script>
 <style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -16,8 +23,6 @@
 }
 
 nav {
-  padding: 30px;
-
   a {
     font-weight: bold;
     color: #2c3e50;

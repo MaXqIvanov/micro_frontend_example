@@ -10,7 +10,8 @@ module.exports = {
           name: 'consumer',
           filename: 'remoteEntry.js',
           remotes: {
-            host: 'host@http://localhost:3002/remoteEntry.js',
+            app1: 'app1@http://localhost:3002/remoteEntry.js',
+            app2: 'app2@http://localhost:3003/remoteEntry.js',
           },
           exposes: {},
           shared: {

@@ -1,51 +1,37 @@
-const { defineConfig } = require('@vue/cli-service');
-const webpack = require('webpack');
-const container = webpack.container;
-const { ModuleFederationPlugin } = container;
-
-const _PRODUCTION_ = process.env.NODE_ENV === 'production';
-
-const publicPath = _PRODUCTION_ ? `${SERVICES_URL}/testapp` : 'http://localhost:3003';
-const proxyTarget = _PRODUCTION_ ? `${SERVICES_URL}/testapp` : 'http://localhost:3200';
+const deps = require('./package.json').dependencies;
 
 module.exports = {
+  publicPath: 'auto',
+  chainWebpack: (config) => {
+    config.optimization.delete('splitChunks');
+    config
+      .plugin('module-federation-plugin')
+      .use(require('webpack').container.ModuleFederationPlugin, [
+        {
+          name: 'app2',
+          filename: 'remoteEntry.js',
+          remotes: {},
+          exposes: {
+            './App2': './src/views/HomeView.vue',
+          },
+          shared: {
+            vue: {
+              eager: true,
+              singleton: true,
+              requiredVersion: deps.vue,
+            },
+          },
+        },
+      ]);
+  },
+  //
   devServer: {
     port: 3003,
-    historyApiFallback: true,
-    proxy: {
-      '/api': {
-        target: proxyTarget,
-      },
-    },
     hot: true,
-  },
-  publicPath: '/',
-
-  configureWebpack: (config) => {
-    const moduleFederationPlugin = new ModuleFederationPlugin({
-      name: 'micto2',
-      filename: 'remoteEntry.js',
-      exposes: {
-        './App': './src/App',
-      },
-    });
-
-    config.plugins.push(moduleFederationPlugin);
-
-    if (_PRODUCTION_) {
-      config.plugins.push(
-        new BundleAnalyzerPlugin({
-          analyzerMode: 'disabled',
-        }),
-      );
-    } else {
-      // изменения для разработки...
-    }
-  },
-
-  pluginOptions: {
-    webpack: {
-      dir: ['./webpack'],
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     },
   },
 };

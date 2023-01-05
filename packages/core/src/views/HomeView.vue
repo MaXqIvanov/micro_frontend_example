@@ -1,23 +1,12 @@
 <template>
-  <div class="home">
-    <HeaderComponent />
-  </div>
+  <div class="home">Контент</div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue';
-const HeaderComponent = defineAsyncComponent(() => import('host/HeaderComponent'));
 
 export default {
-  components: {
-    HeaderComponent,
-  },
+  components: {},
 };
 </script>
-<style scoped>
-.home {
-  height: 200px;
-  widows: 100%;
-  background: yellow;
-}
-</style>
+<style scoped></style>

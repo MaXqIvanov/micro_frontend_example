@@ -8,11 +8,11 @@ module.exports = {
       .plugin('module-federation-plugin')
       .use(require('webpack').container.ModuleFederationPlugin, [
         {
-          name: 'host',
+          name: 'app1',
           filename: 'remoteEntry.js',
           remotes: {},
           exposes: {
-            './HeaderComponent': './src/HeaderComponent.vue',
+            './Header': './src/components/HeaderComponents.vue',
           },
           shared: {
             vue: {
